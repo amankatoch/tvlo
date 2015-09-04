@@ -33,23 +33,23 @@ app.config(['$httpProvider', function($httpProvider) {
 /**
  * Controls the Blog
  */
-
+ app.controller('PageCtrl', function ( $scope, $location, $http ) {
+     $("input[name='date_form']").datepicker()
+     $("input[name='date_to']").datepicker()
+  
+  });
+  
 /**
  * Controls all other Pages
  */
 app.controller('PageCtrl', function (/* $scope, $location, $http */) {
-  console.log("Page Controller reporting for duty.");
+console.log("Page Controller reporting for duty.");
 
   // Activates the Carousel
-  $('.carousel').carousel({
-    interval: 5000
-  });
+ 
 
   // Activates Tooltips for Social Links
-  $('.tooltip-social').tooltip({
-    selector: "a[data-toggle=tooltip]"
-  })
-});
+ });
 
  app.controller("LoginCtrl",function( $scope,$cookies,$cookieStore,loginService) {
                 // I contain the list of friends to be rendered.
@@ -83,8 +83,11 @@ app.controller('PageCtrl', function (/* $scope, $location, $http */) {
                    
                 };
                
-         
+        
             });
+                
+
+     
         
         app.service("loginService",function( $http, $q ,$cookieStore) {
                 $http.get("http://localhost/angular%20js%20phonecat/Chamelion/")
@@ -94,8 +97,7 @@ app.controller('PageCtrl', function (/* $scope, $location, $http */) {
                    login_user: login_user,
                     
                 });
-              
-               
+                
                 function login_user( name ) {
                     var request = $http({
                         method: "get",
@@ -109,23 +111,8 @@ app.controller('PageCtrl', function (/* $scope, $location, $http */) {
                 function handleError( response ) {
                     console.log('in error -----------------------')
                     return("error")
-                    // The API response from the server should be returned in a
-                    // nomralized format. However, if the request was not handled by the
-                    // server (or what not handles properly - ex. server error), then we
-                    // may have to normalize it on our end, as best we can.
-                    if (
-                        ! angular.isObject( response.data ) ||
-                        ! response.data.message
-                        ) {
-                        return( $q.reject( "An unknown error occurred." ) );
-                    }
-                    // Otherwise, use expected error message.
-                    return( $q.reject( response.data.message ) );
                 }
-                // I transform the successful response, unwrapping the application data
-                // from the API response payload.
                 function handleSuccess( response ) {
                     return( response.data );
                 }
-            }
-        );
+            });
