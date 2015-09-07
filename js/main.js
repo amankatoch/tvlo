@@ -2,7 +2,7 @@
 
  */
 var app = angular.module('chamelion', [
-  'ngRoute', 'ngCookies'
+  'ngRoute', 'ngCookies','angularSoap'
 ]);
 
 /**
@@ -33,7 +33,21 @@ app.config(['$httpProvider', function($httpProvider) {
 /**
  * Controls the Blog
  */
- app.controller('PageCtrl', function($scope,$location,$http ) {
+
+
+app.factory("gethotelService", ['$soap',function($soap){
+    var base_url = "http://209.133.206.170/ChameleonHubXML/CommonsProcess";
+
+    return {
+        hotels_: function(){
+            return $soap.post(base_url,"searchDestination",{Destination: "Foz"});
+        }
+    }
+}])
+
+
+
+ app.controller('PageCtrl', function($scope,$location,$http, gethotelService ) {
     console.log("pagectrl init..");
         jQuery("input[name='date_from']").datepicker();
         jQuery("input[name='date_to']").datepicker();
@@ -55,16 +69,50 @@ app.config(['$httpProvider', function($httpProvider) {
             });
         });
 
+
+
+
+         gethotelService.hotels_().then(function(response){
+         $scope.response = response;
+                console.log(response);
+          });
+
+
           $scope.hotelresForm = function(){
-                console.log('init hotelform');
-                
+            console.log("hotel form ... ")
+            console.log($scope.hotelname+$scope.hoteldatestart+$scope.hoteldateend+$scope.hotelrooms+$scope.hoteladults+$scope.hotelkids)
+              
                if ($scope.hotelForm.$valid) {
                     console.log("valid form")
 
+                   
+
+
+                    var reqxml ='<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.chameleonws.com/">'+
+                    '<soapenv:Header/>'+
+                    '<soapenv:Body>'+
+                    '<web:searchDestination>'+
+                    '<!--Optional:-->'+
+                    '<destinationRQ>'+
+                    '<Destination>Foz</Destination>'+
+                    '</destinationRQ>'+
+                    '</web:searchDestination>'+
+                    '</soapenv:Body>'+
+                    '</soapenv:Envelope>';
+
+
+
+
+                   
+
+
+
+
+                      
                 }
                 else
                 {
-                   //$scope.submitted = true;
+                   $scope.submitted = true;
                     
 
                 }
