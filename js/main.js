@@ -33,25 +33,60 @@ app.config(['$httpProvider', function($httpProvider) {
 /**
  * Controls the Blog
  */
- app.controller('PageCtrl', function ( $scope, $location, $http ) {
-     $("input[name='date_form']").datepicker()
-     $("input[name='date_to']").datepicker()
+ app.controller('PageCtrl', function($scope,$location,$http ) {
+    console.log("pagectrl init..");
+        jQuery("input[name='date_from']").datepicker();
+        jQuery("input[name='date_to']").datepicker();
+         tjq(document).ready(function() {
+            tjq('.revolution-slider').revolution(
+            {
+                dottedOverlay:"none",
+                delay:8000,
+                startwidth:1170,
+                startheight:646,
+                onHoverStop:"on",
+                hideThumbs:10,
+                fullWidth:"on",
+                forceFullWidth:"on",
+                navigationType:"none",
+                shadow:0,
+                spinner:"spinner4",
+                hideTimerBar:"on",
+            });
+        });
+
+          $scope.hotelresForm = function(){
+                console.log('init hotelform');
+                
+               if ($scope.hotelForm.$valid) {
+                    console.log("valid form")
+
+                }
+                else
+                {
+                   //$scope.submitted = true;
+                    
+
+                }
+                
+
+          }
+
+
+
+
+
+       });
+
+
+
   
-  });
-  
-/**
- * Controls all other Pages
- */
-app.controller('PageCtrl', function (/* $scope, $location, $http */) {
-console.log("Page Controller reporting for duty.");
+                /**
+                 * Controls all other Pages
+                 */
 
-  // Activates the Carousel
- 
 
-  // Activates Tooltips for Social Links
- });
-
- app.controller("LoginCtrl",function( $scope,$cookies,$cookieStore,loginService) {
+            app.controller("LoginCtrl",function( $scope,$cookies,$cookieStore,loginService) {
                 // I contain the list of friends to be rendered.
                 $scope.friends = [];
                 // I contain the ngModel values for form interaction.
@@ -85,6 +120,8 @@ console.log("Page Controller reporting for duty.");
                
         
             });
+             
+           
                 
 
      
