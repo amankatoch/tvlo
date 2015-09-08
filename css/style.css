@@ -5514,7 +5514,7 @@ ul.check-circle li:before {
     position: absolute;
     left: 0px;
     top: -9999px;
-    z-index: -1;
+    z-index: 9;
     width: 180px;
     padding: 0;
     background: #01b7f2; }
@@ -6155,7 +6155,7 @@ ul.menu.mini {
     position: absolute;
     top: 15px;
     width: 100%;
-    z-index: 9999;
+    z-index: 99;
   }
   .tp-leftarrow{
     z-index: 99999999 !important;
