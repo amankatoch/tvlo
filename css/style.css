@@ -6149,7 +6149,20 @@ ul.menu.mini {
     z-index: 2; }
   .slideshow-bg .custom-select, .slideshow-bg .input-text {
     -webkit-backface-visibility: hidden; }
-
+    /*top_search style start here*/
+  .top_search {
+    left: 0;
+    position: absolute;
+    top: 15px;
+    width: 100%;
+    z-index: 9999;
+  }
+  .tp-leftarrow{
+    z-index: 99999999 !important;
+  }
+  .tp-rightarrow{
+    z-index: 99999999 !important;
+  }
 /* 3.3. Page Title ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .page-title-container {
   height: 56px;
