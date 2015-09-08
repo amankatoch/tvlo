@@ -30,7 +30,7 @@
                                 <div class="search-box">
                                     <ul class="search-tabs clearfix" ng-init="tab = 1">
                                         <li ng-class="{active:tab===1}"><a href ng-click="tab = 1" data-toggle="tab"><i class="soap-icon-hotel"></i>HOTELS</a></li>
-                                        <li ng-class="{active:tab===2}" class="active"><a href  ng-click="tab = 2" data-toggle="tab"><i class="soap-icon-plane-right takeoff-effect"></i>FLIGHTS</a></li>
+                                        <li ng-class="{active:tab===2}" ><a href  ng-click="tab = 2" data-toggle="tab"><i class="soap-icon-plane-right takeoff-effect"></i>FLIGHTS</a></li>
                                         <li ng-class="{active:tab===3}"><a href ng-click="tab = 3" data-toggle="tab"><i class="soap-icon-flight-hotel"></i>FLIGHT &amp; HOTELS</a></li>
                                         <li ng-class="{active:tab===4}"><a href ng-click="tab = 4" data-toggle="tab"><i class="soap-icon-car"></i>CARS</a></li>
                                         <li ng-class="{active:tab===5}"><a href ng-click="tab = 5" data-toggle="tab"><i class="soap-icon-cruise"></i>CRUISES</a></li>
@@ -39,13 +39,13 @@
                                     </ul>
                                     <div class="visible-mobile">
                                         <ul id="mobile-search-tabs" class="search-tabs clearfix">
-                                            <li><a href="#hotels-tab">HOTELS</a></li>
-                                            <li class="active"><a href="#flights-tab">FLIGHTS</a></li>
-                                            <li><a href="#flight-and-hotel-tab">FLIGHT &amp; HOTELS</a></li>
-                                            <li><a href="#cars-tab">CARS</a></li>
-                                            <li><a href="#cruises-tab">CRUISES</a></li>
-                                            <li><a href="#flight-status-tab">FLIGHT STATUS</a></li>
-                                            <li><a href="#online-checkin-tab">ONLINE CHECK IN</a></li>
+                                            <li ng-class="{active:tab===1}"><a href ng-click="tab = 1">HOTELS</a></li>
+                                            <li ng-class="{active:tab===2}" ><a href ng-click="tab = 2">FLIGHTS</a></li>
+                                            <li ng-class="{active:tab===3}"><a href ng-click="tab = 3">FLIGHT &amp; HOTELS</a></li>
+                                            <li ng-class="{active:tab===4}"><a href ng-click="tab = 4">CARS</a></li>
+                                            <li ng-class="{active:tab===5}"><a href ng-click="tab = 5">CRUISES</a></li>
+                                            <li ng-class="{active:tab===6}"><a href ng-click="tab = 6">FLIGHT STATUS</a></li>
+                                            <li ng-class="{active:tab===7}"><a href ng-click="tab = 7">ONLINE CHECK IN</a></li>
                                         </ul>
                                     </div>
                                     
@@ -61,7 +61,7 @@
                                                     <h5 class="title">Where</h5>
                                                     <label>Your Destination</label>
                                                    <input type="text" name="hotelname" class="input-text full-width" ng-model="hotelname" placeholder="enter a destination or hotel name" required />
-                                                   <p ng-show="hotelForm.hotelname.$dirty && hotelForm.hotelname.$error.required " class="help-block">Rooms cant be blank</p>
+                                                   <p ng-show="hotelForm.hotelname.$dirty && hotelForm.hotelname.$error.required " class="help-block">Destination cant be blank</p>
                                                     <hr>
                                                     <h5 class="title">When</h5>
                                                     <div class="row">
@@ -69,7 +69,7 @@
                                                             <label>Check In</label>
                                                             <div class="datepicker-wrap">
                                                                <input type="text" name="date_from" class="input-text full-width" placeholder="mm/dd/yy"  ng-model="hoteldatestart" required />
-                                                         <p ng-show="submitted && hotelForm.hoteldatestart.$error.required" class="help-block">Rooms cant be blank</p>
+                                                         <p ng-show="submitted && hotelForm.hoteldatestart.$error.required" class="help-block">Startdate cant be blank</p>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-6">
@@ -106,7 +106,7 @@
                                                                     <option value="4">04</option>
                                                                 </select>
                                                                  <span class="custom-select full-width">01</span>
-                                                                  <p ng-show="submitted && hotelForm.hoteladults.$error.required" class="help-block">Rooms cant be blank</p>
+                                                                  <p ng-show="submitted && hotelForm.hoteladults.$error.required" class="help-block">Adults cant be blank</p>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-4">
@@ -119,7 +119,7 @@
                                                                     <option value="4">04</option>
                                                                 </select>
                                                                  <span class="custom-select full-width">01</span>
-                                                                  <p ng-show="submitted && hotelForm.hotelkids.$error.required" class="help-block">Rooms cant be blank</p>
+                                                                  <p ng-show="submitted && hotelForm.hotelkids.$error.required" class="help-block">Kids cant be blank</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -130,7 +130,7 @@
                                             </form>
                                         </div>
                                         <div ng-show="tab === 2"  id="flights-tab">
-                                            <form action="flight-list-view.html" method="post">
+                                            <form novalidate name="flightForm" ng-submit="flightresForm()" method="post">
                                                 <div class="title-container">
                                                     <h2 class="search-title">Search and Book Flights</h2>
                                                     <p>We're bringing you a new level of comfort.</p>
@@ -159,11 +159,16 @@
                                                     <div class="row">
                                                         <div class="col-xs-6">
                                                             <label>Leaving From</label>
-                                                            <input type="text" class="input-text full-width" placeholder="enter your location" />
+                                                            <input type="text" name="leavingfrom" ng-model="leavingfrom" class="input-text full-width"  placeholder="enter your location" required/>
+                                                            <p ng-show="flightForm.leavingfrom.$dirty && flightForm.leavingfrom.$error.required" class="help-block">Start destination cant be empty</p>
                                                         </div>
                                                         <div class="col-xs-6">
                                                             <label>Going To</label>
-                                                            <input type="text" class="input-text full-width" placeholder="enter a destination" />
+                                                   
+                                                            <input type="text" name="flightdestination" ng-model="flightdestination" class="input-text full-width" placeholder="enter a destination" required/>
+
+                                                            <p ng-show="flightForm.flightdestination.$dirty 
+                                                            && flightForm.flightdestination.$error.required " class="help-block">Destination cant be blank</p>
                                                         </div>
                                                     </div>
                                                     <hr>
@@ -172,16 +177,18 @@
                                                     <div class="row">
                                                         <div class="col-xs-6 col-md-5">
                                                             <div class="datepicker-wrap">
-                                                                <input type="text" name="date_from" class="input-text full-width" placeholder="select date" />
+                                                                <input type="text" ng-model="date_from" name="date_from" class="input-text full-width" placeholder="select date" required/>
+                                                                <p ng-show="flightForm.date_from.$dirty && flightForm.date_from.$error.required" class="help-block">Start date cant be blank</p>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-6 col-md-5">
                                                             <div class="selector">
-                                                                <select>
-                                                                    <option value="">select date</option>
+                                                                <select class="full-width" ngmodel="starttime" ng-init="starttime=anytime">
+                                                                    <option value="">select time</option>
                                                                     <option value="1">anytime</option>
                                                                     <option value="2">morning</option>
                                                                 </select>
+                                                                <span class="custom-select full-width">Select time</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -194,11 +201,13 @@
                                                         </div>
                                                         <div class="col-xs-6 col-md-5">
                                                             <div class="selector">
-                                                                <select>
-                                                                    <option value="">select date</option>
+                                                                  <select class="full-width" ngmodel="endtime" ng-init="endtime=anytime">
+                                                                   
+                                                                    <option value="">select time</option>
                                                                     <option value="1">anytime</option>
                                                                     <option value="2">morning</option>
                                                                 </select>
+                                                                <span class="custom-select full-width">Select time</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -208,34 +217,37 @@
                                                         <div class="col-xs-4 col-md-3">
                                                             <label>Adults</label>
                                                             <div class="selector">
-                                                                <select>
+                                                                <select class="full-width" ngmodel="flightadults" ng-init="flightadults=1">
                                                                     <option value="1">01</option>
                                                                     <option value="2">02</option>
                                                                     <option value="3">03</option>
                                                                     <option value="4">04</option>
                                                                 </select>
+                                                                <span class="custom-select full-width">01</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-4 col-md-3">
                                                             <label>Kids</label>
                                                             <div class="selector">
-                                                                <select>
+                                                                <select class="full-width" ngmodel="flightkids" ng-init="flightkids=1">
                                                                     <option value="1">01</option>
                                                                     <option value="2">02</option>
                                                                     <option value="3">03</option>
                                                                     <option value="4">04</option>
                                                                 </select>
+                                                                <span class="custom-select full-width">01</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-4 col-md-3">
                                                             <label>Infants</label>
                                                             <div class="selector">
-                                                                <select>
+                                                                <select class="full-width" ngmodel="flightinfant" ng-init="flightinfant=1">
                                                                     <option value="1">01</option>
                                                                     <option value="2">02</option>
                                                                     <option value="3">03</option>
                                                                     <option value="4">04</option>
                                                                 </select>
+                                                                <span class="custom-select full-width">01</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -245,17 +257,19 @@
                                                         <div class="col-xs-6">
                                                             <label>Class of travel</label>
                                                             <div class="selector">
-                                                                <select>
+                                                                <select class="full-width" ngmodel="flightclass">
                                                                     <option value="">Economy</option>
                                                                 </select>
+                                                                <span class="custom-select full-width">Class of travel</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-6">
                                                             <label>Preferred Airline</label>
                                                             <div class="selector">
-                                                                <select>
+                                                                <select class="full-width" ngmodel="flightpreffered">
                                                                     <option value="">select name</option>
                                                                 </select>
+                                                                <span class="custom-select full-width">Preffered</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -264,7 +278,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div  ng-show="tab === 3" id="flight-and-hotel-tab">
+                                        <div ng-show="tab === 3" id="flight-and-hotel-tab">
                                             <form action="flight-list-view.html" method="post">
                                                 <div class="title-container">
                                                     <h2 class="search-title">Search and Book Flight &amp; Hotels</h2>
@@ -382,7 +396,7 @@
                                             </form>
                                         </div>
                                         <div ng-show="tab === 4"  id="cars-tab">
-                                            <form action="car-list-view.html" method="post">
+                                            <form novalidate name="carForm" ng-submit="carresForm()"  method="post">
                                                 <div class="title-container">
                                                     <h2 class="search-title">Search Cars</h2>
                                                     <p>We're bringing you a new level of comfort.</p>
@@ -393,11 +407,13 @@
                                                         <h5 class="title">Where</h5>
                                                         <div class="col-xs-6">
                                                             <label>Pick Up</label>
-                                                            <input type="text" class="input-text full-width" placeholder="city, distirct or specific airpot" />
+                                                            <input type="text" name='carcity' ng-model='carcity' class="input-text full-width" placeholder="city, distirct or specific airpot" required/>
+                                                              <p ng-show="submitted && carForm.carcity.$error.required" class="help-block">City cant be blank</p>
                                                         </div>
                                                         <div class="col-xs-6">
                                                             <label>Drop Off</label>
-                                                            <input type="text" class="input-text full-width" placeholder="city, distirct or specific airpot" />
+                                                            <input type="text" name="dropoff" ng-model="dropoff" class="input-text full-width" placeholder="city, distirct or specific airpot" carcity/>
+                                                            <p ng-show="submitted && carForm.dropoff.$error.required">Dropoff required</p>
                                                         </div>
                                                     </div>
                                                     <hr>
@@ -406,15 +422,17 @@
                                                     <div class="form-group row">
                                                         <div class="col-xs-6">
                                                             <div class="datepicker-wrap">
-                                                                <input type="text" name="date_from" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                                <input ng-model="date_from" type="text" name="date_from" class="input-text full-width" placeholder="mm/dd/yy" required/>
+                                                                <p ng-show="submitted && carForm.date_from.$error.required">Start date cant be empty</p>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-6">
                                                             <div class="selector">
-                                                                <select class="full-width">
+                                                                 <select class="full-width" ngmodel="cartime" ng-init="cartime='anytime'">
                                                                     <option value="1">anytime</option>
                                                                     <option value="2">morning</option>
                                                                 </select>
+                                                                 <span class="custom-select full-width">select time</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -422,15 +440,17 @@
                                                     <div class="row">
                                                         <div class="col-xs-6">
                                                             <div class="datepicker-wrap">
-                                                                <input type="text" name="date_to" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                                <input type="text" ng-model="date_to" name="date_to" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                                <p ng-show="submitted && carForm.date_to.$error.required">Drop date cant be empty</p>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-6">
                                                             <div class="selector">
-                                                                <select class="full-width">
+                                                                 <select class="full-width" ngmodel="cartimeend" ng-init="cartimeend='anytime'">
                                                                     <option value="1">anytime</option>
                                                                     <option value="2">morning</option>
                                                                 </select>
+                                                                 <span class="custom-select full-width">select time</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -446,6 +466,7 @@
                                                                     <option value="3">03</option>
                                                                     <option value="4">04</option>
                                                                 </select>
+                                                                 <span class="custom-select full-width">01</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-3">
@@ -457,6 +478,7 @@
                                                                     <option value="3">03</option>
                                                                     <option value="4">04</option>
                                                                 </select>
+                                                                 <span class="custom-select full-width">01</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-xs-6">
@@ -474,6 +496,7 @@
                                                                     <option value="economy">Economy</option>
                                                                     <option value="compact">Compact</option>
                                                                 </select>
+                                                                 <span class="custom-select full-width">Select car type</span>
                                                             </div>
                                                         </div>
                                                     </div>

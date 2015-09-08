@@ -77,7 +77,7 @@ app.factory("gethotelService", ['$soap',function($soap){
                 console.log(response);
           });
 
-
+           /*start hotel form */
           $scope.hotelresForm = function(){
             console.log("hotel form ... ")
             console.log($scope.hotelname+$scope.hoteldatestart+$scope.hoteldateend+$scope.hotelrooms+$scope.hoteladults+$scope.hotelkids)
@@ -100,31 +100,32 @@ app.factory("gethotelService", ['$soap',function($soap){
                     '</soapenv:Body>'+
                     '</soapenv:Envelope>';
 
-
-
-
-                   
-
-
-
-
                       
                 }
                 else
                 {
                    $scope.submitted = true;
                     
+               }
+ 
+           }
+         /*end hotel form */
 
-                }
-                
+         
+            
+         /* flight form start */
+
+          $scope.flightresForm = function(){
+          console.log("hotelres")
 
           }
+          /*end of flight form */
+            
+          });
 
 
 
 
-
-       });
 
 
 
